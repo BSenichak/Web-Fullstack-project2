@@ -1,86 +1,39 @@
-class Game {
-    constructor(playerChoice) {
-        this.playerChoice = playerChoice;
-    }
+//task 1
+/*
+import myMath from "./myMath/myMath.js";
 
-    choices = ["камінь", "ножиці", "папір"];
-    computerChoice;
+console.log(myMath.add(0, 0));
+console.log(myMath.subtruct(0, 0));
+console.log(myMath.multiply(0, 0));
+console.log(myMath.divide(0, 0));
+*/
 
-    getComputerChoice() {
-        this.computerChoice =
-            this.choices[Math.floor(Math.random() * this.choices.length)];
-        return this.computerChoice;
-    }
+//task 2
+/*
+import User from "./User.js";
 
-    determineWinner() {
-        if (this.playerChoice === this.computerChoice) {
-            return "Нічия!";
-        }
+const user1 = new User();
+console.log(user1.getId());
 
-        if (
-            (this.playerChoice === "камінь" &&
-                this.computerChoice === "ножиці") ||
-            (this.playerChoice === "ножиці" &&
-                this.computerChoice === "папір") ||
-            (this.playerChoice === "папір" && this.computerChoice === "камінь")
-        ) {
-            return "Гравець виграв!";
-        } else {
-            return "Комп'ютер виграв!";
-        }
-    }
+const user2 = new User();
+console.log(user2.getId());
+
+console.log(User.getUserCount()); 
+*/
+
+//task 3
+import Bus from "./Transports/Bus.js";
+import Car from "./Transports/Car.js";
+import Bicycle from "./Transports/Bicycle.js";
+import Tram from "./Transports/Tram.js";
+
+function travelInfo(transportArray) {
+    transportArray.forEach(transport => {
+        transport.move();
+        console.log(`зі швидкістю ${transport.speed()} км/год.\n`);
+    });
 }
 
-// let playerChoice = "камінь";
-// let game = new Game(playerChoice);
+const transports = [new Car(), new Bus(), new Tram(), new Bicycle()];
 
-// console.log("Вибір гравця:", playerChoice);
-// console.log("Вибір комп'ютера:", game.getComputerChoice());
-// console.log(game.determineWinner());
-
-class BankAccount {
-    #balance;
-    #accountNumber;
-
-    constructor(accountNumber, initialBalance) {
-        this.#accountNumber = accountNumber;
-        this.#balance = initialBalance > 0 ? initialBalance : 0;
-    }
-    get balance() {
-        return this.#balance;
-    }
-    get accountNumber() {
-        return this.#accountNumber;
-    }
-    deposit(amount) {
-        if (amount > 0) {
-            this.#balance += amount;
-            console.log(`Поповнено: ${amount}. Новий баланс: ${this.#balance}`);
-        } else {
-            console.log("Сума для поповнення має бути додатньою.");
-        }
-    }
-    withdraw(amount) {
-        if (amount > 0 && amount <= this.#balance) {
-            this.#balance -= amount;
-            console.log(`Знято: ${amount}. Новий баланс: ${this.#balance}`);
-        } else {
-            console.log("Недостатньо коштів або сума має бути додатньою.");
-        }
-    }
-    displayAccountInfo() {
-        console.log(
-            `Рахунок: ${this.#accountNumber}, Баланс: ${this.#balance}`
-        );
-    }
-}
-
-const myAccount = new BankAccount("UA123456789", 1000);
-myAccount.displayAccountInfo();
-
-myAccount.deposit(500);
-myAccount.withdraw(200);
-myAccount.withdraw(2000);
-
-console.log(myAccount.balance);
-console.log(myAccount.accountNumber);
+travelInfo(transports);
