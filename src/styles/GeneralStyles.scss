@@ -3,6 +3,13 @@
 @use "./base/mixins" as *;
 @use "./base/typography" as *;
 
+$theme-colors: (
+    "primary": $primary-100,
+    "secondary": $accent-100,
+);
+
+@import "~bootstrap";
+
 #root {
     min-height: 100vh;
     display: flex;
