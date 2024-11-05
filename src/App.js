@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import TestQuestion from "./components/TestQuestion.jsx";
+import styles from "./styles/components/app.module.scss";
 
 export class App extends Component {
     render() {
         return (
             <>
                 <Header />
-                <main>
+                <main className={styles.main}>
                     <TestQuestion
                         questionId={1}
                         questionText="which tag is used for styling"

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import styles from "../styles/components/footer.module.scss";
 
 export class Footer extends Component {
   render() {
     return (
-      <footer>&copy; {new Date().getFullYear()} RoboQuiz</footer>
+      <footer className={styles.footer}>&copy; {new Date().getFullYear()} RoboQuiz</footer>
     )
   }
 }
