@@ -4,6 +4,7 @@ import Footer from "./components/Footer.jsx";
 import TestQuestion from "./components/TestQuestion.jsx";
 import styles from "./styles/components/app.module.scss";
 import StartQuiz from "./components/StartQuiz.jsx";
+import QuizResults from "./components/QuizResults.jsx";
 
 export class App extends Component {
     constructor(props) {
@@ -11,11 +12,14 @@ export class App extends Component {
         this.state = {
             isQuizStarted: false,
             questionNumber: 0,
+            userAnswers: [],
+            showResults: false,
         };
         this.startQuiz = this.startQuiz.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
         this.previousQuestion = this.previousQuestion.bind(this);
         this.stopQuiz = this.stopQuiz.bind(this);
+        this.tryAgain = this.tryAgain.bind(this);
     }
 
     quiz1 = {
@@ -99,6 +103,7 @@ export class App extends Component {
                 correctAnswer: "ul",
             },
         ],
+        time: 5,
     };
 
     startQuiz() {
@@ -107,9 +112,11 @@ export class App extends Component {
         });
     }
 
-    stopQuiz() {
+    stopQuiz(answers) {
         this.setState({
             isQuizStarted: false,
+            userAnswers: answers,
+            showResults: true,
         });
     }
 
@@ -121,6 +128,7 @@ export class App extends Component {
         }
     }
 
+    
     previousQuestion() {
         if (this.state.questionNumber > 0) {
             this.setState({
@@ -128,7 +136,15 @@ export class App extends Component {
             });
         }
     }
-
+    
+    tryAgain() {
+        this.setState({
+            isQuizStarted: false,
+            questionNumber: 0,
+            userAnswers: [],
+            showResults: false,
+        });
+    }
     render() {
         return (
             <>
@@ -136,13 +152,34 @@ export class App extends Component {
                 <main className={styles.main}>
                     {this.state.isQuizStarted ? (
                         <TestQuestion
-                            questionId={this.quiz1.questions[this.state.questionNumber].questionId}
-                            questionText={this.quiz1.questions[this.state.questionNumber].questionText}
-                            answers={this.quiz1.questions[this.state.questionNumber].answers}
-                            correctAnswer={this.quiz1.questions[this.state.questionNumber].correctAnswer}
+                            questionId={
+                                this.quiz1.questions[this.state.questionNumber]
+                                    .questionId
+                            }
+                            questionText={
+                                this.quiz1.questions[this.state.questionNumber]
+                                    .questionText
+                            }
+                            answers={
+                                this.quiz1.questions[this.state.questionNumber]
+                                    .answers
+                            }
+                            correctAnswer={
+                                this.quiz1.questions[this.state.questionNumber]
+                                    .correctAnswer
+                            }
                             nextQuestion={this.nextQuestion}
                             previousQuestion={this.previousQuestion}
                             stopQuiz={this.stopQuiz}
+                            count={this.quiz1.questions.length}
+                            time={this.quiz1.time}
+                        />
+                    ) : this.state.showResults ? (
+                        <QuizResults
+                            name={this.quiz1.quizName}
+                            result={this.state.userAnswers.length}
+                            count={this.quiz1.questions.length}
+                            tryAgain={this.tryAgain}
                         />
                     ) : (
                         <StartQuiz
