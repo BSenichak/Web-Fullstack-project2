@@ -19,4 +19,17 @@
             gap: 1rem;
         }
     }
+
+    & .buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+        padding: 0.3rem;
+    }
+
+    & .stop {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 }
