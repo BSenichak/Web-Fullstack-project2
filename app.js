@@ -1,42 +1,76 @@
-class Game {
-    constructor(playerChoice) {
-        this.playerChoice = playerChoice;
+class Book {
+    constructor(title, author) {
+        this.title = title;
+        this.author = author;
+        this.isAvailable = true; 
     }
-
-    choices = ["камінь", "ножиці", "папір"];
-    computerChoice;
-
-    getComputerChoice() {
-        this.computerChoice =
-            this.choices[Math.floor(Math.random() * this.choices.length)];
-        return this.computerChoice;
+  
+  borrowBook() {
+      if (this.isAvailable) {
+          this.isAvailable = false;
+          return `"${this.title}" позичено успішно.`;
+      } else {
+          return `"${this.title}" зараз недоступна.`;
+      }
+  }
+  
+  returnBook() {
+      if (!this.isAvailable) {
+          this.isAvailable = true;
+          return `"${this.title}" повернено до бібліотеки.`;
+      } else {
+          return `"${this.title}" вже була в бібліотеці.`;
+      }
+  }
+  }
+  
+  class Library {
+    constructor() {
+        this.books = [];
     }
-
-    determineWinner() {
-        if (this.playerChoice === this.computerChoice) {
-            return "Нічия!";
-        }
-
-        if (
-            (this.playerChoice === "камінь" &&
-                this.computerChoice === "ножиці") ||
-            (this.playerChoice === "ножиці" &&
-                this.computerChoice === "папір") ||
-            (this.playerChoice === "папір" && this.computerChoice === "камінь")
-        ) {
-            return "Гравець виграв!";
-        } else {
-            return "Комп'ютер виграв!";
-        }
-    }
-}
-
-// let playerChoice = "камінь";
-// let game = new Game(playerChoice);
-
-// console.log("Вибір гравця:", playerChoice);
-// console.log("Вибір комп'ютера:", game.getComputerChoice());
-// console.log(game.determineWinner());
+  
+  addBook(book) {
+      this.books.push(book);
+      return `Додано книгу: "${book.title}" автора ${book.author}.`;
+  }
+  
+  checkAvailability(title) {
+      const book = this.books.find(b => b.title === title);
+      if (book) {
+          return book.isAvailable
+              ? `"${title}" доступна для позичання.`
+              : `"${title}" зараз позичена.`;
+      } else {
+          return `"${title}" не знайдено в бібліотеці.`;
+      }
+  }
+  
+  borrowBook(title) {
+      const book = this.books.find(b => b.title === title);
+      return book ? book.borrowBook() : `"${title}" не знайдено в бібліотеці.`;
+  }
+  
+  returnBook(title) {
+      const book = this.books.find(b => b.title === title);
+      return book ? book.returnBook() : `"${title}" не знайдено в бібліотеці.`;
+  }
+  }
+  
+//   const library = new Library();
+  
+//   console.log(library.addBook(new Book("Гаррі Поттер", "Дж. К. Ролінг")));
+//   console.log(library.addBook(new Book("Володар Перснів", "Дж. Р. Р. Толкін")));
+  
+//   console.log(library.checkAvailability("Гаррі Поттер"));
+  
+//   console.log(library.borrowBook("Гаррі Поттер"));
+//   console.log(library.checkAvailability("Гаррі Поттер"));
+  
+//   console.log(library.borrowBook("Гаррі Поттер"));
+  
+//   console.log(library.returnBook("Гаррі Поттер"));
+//   console.log(library.checkAvailability("Гаррі Поттер"));
+  
 
 class BankAccount {
     #balance;
